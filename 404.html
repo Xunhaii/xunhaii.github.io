@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>页面未找到 - 404</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3B82F6',
+            secondary: '#6366F1',
+            accent: '#8B5CF6',
+            neutral: '#1F2937',
+            'neutral-light': '#F3F4F6',
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .backdrop-blur-sm {
+        backdrop-filter: blur(4px);
+      }
+      .glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      .glass-dark {
+        background: rgba(31, 41, 55, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .hover-scale {
+        transition: transform 0.3s ease;
+      }
+      .hover-scale:hover {
+        transform: scale(1.05);
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.8s ease-in-out;
+      }
+      .animate-slide-up {
+        animation: slideUp 0.8s ease-out;
+      }
+      .animate-pulse-slow {
+        animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+  </style>
+</head>
+<body class="font-inter bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen dark:from-neutral-900 to-neutral-800 transition-colors duration-300">
+  <!-- 顶部导航栏 -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="glass dark:glass-dark px-4 py-3 flex items-center justify-between shadow-sm">
+      <div class="flex items-center space-x-4">
+        <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+          <i class="fa fa-moon-o dark:hidden text-neutral"></i>
+          <i class="fa fa-sun-o hidden dark:inline text-yellow-300"></i>
+        </button>
+        <h1 class="text-xl font-bold text-primary dark:text-white text-shadow">404 - 页面没找到</h1>
+      </div>
+      <nav class="hidden md:flex items-center space-x-6">
+        <a href="/" class="text-neutral dark:text-white hover:text-primary dark:hover:text-primary transition-colors">首页</a>
+      </nav>
+      <button id="mobile-menu-btn" class="md:hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+        <i class="fa fa-bars text-neutral dark:text-white"></i>
+      </button>
+    </div>
+  </header>
+  
+  <!-- 移动端菜单 -->
+  <div id="mobile-menu" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex items-center justify-center hidden md:hidden">
+    <div class="glass-dark rounded-xl p-6 w-full max-w-md mx-4">
+      <div class="flex justify-end mb-4">
+        <button id="close-mobile-menu-btn" class="p-2 rounded-full hover:bg-gray-700 transition-colors">
+          <i class="fa fa-times text-white"></i>
+        </button>
+      </div>
+      <nav class="flex flex-col items-center space-y-4">
+        <a href="/" class="text-white hover:text-primary transition-colors text-lg">首页</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 主内容区 -->
+  <main class="container mx-auto px-4 pt-24 pb-16 flex flex-col items-center justify-center min-h-[80vh]">
+    <!-- 404错误容器 -->
+    <div class="glass dark:glass-dark rounded-2xl shadow-lg p-8 max-w-3xl w-full animate-fade-in">
+      <div class="text-center">
+        <!-- 404图标 -->
+        <div class="relative w-32 h-32 mx-auto mb-8">
+          <div class="absolute inset-0 bg-red-100 dark:bg-red-900/30 rounded-full blur opacity-75 animate-pulse-slow"></div>
+          <div class="relative flex items-center justify-center w-full h-full">
+            <i class="fa fa-exclamation-triangle text-red-500 text-6xl"></i>
+          </div>
+        </div>
+        
+        <!-- 错误代码和标题 -->
+        <h2 class="text-[clamp(2rem,5vw,4rem)] font-bold text-neutral dark:text-white mb-2">404</h2>
+        <h3 class="text-2xl font-semibold text-neutral dark:text-white mb-4">页面未找到</h3>
+        
+        <!-- 错误说明 -->
+        <p class="text-gray-600 dark:text-gray-300 text-lg mb-8">
+          您请求的页面不存在，或者已被移动、删除。请检查URL是否正确，或返回首页继续浏览。
+        </p>
+        
+        <!-- 返回按钮 -->
+        <a href="/" class="inline-block px-8 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center">
+          <i class="fa fa-home mr-2"></i> 返回首页
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="fixed bottom-0 left-0 right-0">
+    <div class="glass dark:glass-dark px-4 py-2 text-center text-sm text-gray-600 dark:text-gray-400">
+      <p>© 2025 Xunhaii | All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
