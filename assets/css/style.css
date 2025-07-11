@@ -1,0 +1,97 @@
+@layer utilities {
+    .content-auto {
+        content-visibility: auto;
+    }
+    .backdrop-blur-xs {
+        backdrop-filter: blur(2px);
+    }
+    .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .text-shadow-dark {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.glass-effect {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: backdrop-filter 0.3s ease;
+}
+
+.no-glass {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.setting-item {
+    transition: transform 0.2s ease;
+}
+
+.setting-item:hover {
+    transform: translateX(4px);
+}
+
+.bg-blur {
+    filter: blur(8px);
+    transition: filter 0.3s ease;
+}
+
+.profile-card {
+    transition: all 0.3s ease;
+}
+
+.project-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+}
+
+/* 设置按钮样式 */
+#settingsBtn {
+    transition: all 0.3s ease;
+}
+
+#settingsBtn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+#settingsBtn:active {
+    transform: scale(0.95);
+}
+
+/* 设置面板动画 */
+#settingsPanel {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#settingsPanel.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#settingsPanel .relative {
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+#settingsPanel.active .relative {
+    transform: scale(1);
+}
+    

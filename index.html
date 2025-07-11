@@ -1,466 +1,225 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Xunhaii的个人主页</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/styles.css">
-  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#3B82F6',
-            secondary: '#6366F1',
-            accent: '#8B5CF6',
-            neutral: '#1F2937',
-            'neutral-light': '#F3F4F6',
-          },
-          fontFamily: {
-            inter: ['Inter', 'system-ui', 'sans-serif'],
-          },
-        },
-      }
-    }
-  </script>
-  <style type="text/tailwindcss">
-    @layer utilities {
-      .content-auto {
-        content-visibility: auto;
-      }
-      .backdrop-blur-sm {
-        backdrop-filter: blur(4px);
-      }
-      .glass {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-      }
-      .glass-dark {
-        background: rgba(31, 41, 55, 0.7);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-      .text-shadow {
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      .hover-scale {
-        transition: transform 0.3s ease;
-      }
-      .hover-scale:hover {
-        transform: scale(1.05);
-      }
-      .animate-fade-in {
-        animation: fadeIn 0.8s ease-in-out;
-      }
-      .animate-slide-up {
-        animation: slideUp 0.8s ease-out;
-      }
-      .animate-pulse-slow {
-        animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-      }
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    @keyframes slideUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xunhaii的个人主页</title>
+    <script src="/assets/tailwind.min.js"></script>
+    <link href="https://start.xunhaii.com/css/fontawesome.all.min.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <script src="/assets/tailwind.config.js"></script>
 </head>
-<body class="font-inter bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen dark:from-neutral-900 to-neutral-800 transition-colors duration-300">
-  <!-- 顶部导航栏 -->
-  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-    <div class="glass dark:glass-dark px-4 py-3 flex items-center justify-between shadow-sm">
-      <div class="flex items-center space-x-4">
-        <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-          <i class="fa fa-moon-o dark:hidden text-neutral"></i>
-          <i class="fa fa-sun-o hidden dark:inline text-yellow-300"></i>
-        </button>
-        <h1 class="text-xl font-bold text-primary dark:text-white text-shadow">个人主页</h1>
-      </div>
-      <nav class="hidden md:flex items-center space-x-6">
-        <a href="#about" class="text-neutral dark:text-white hover:text-primary dark:hover:text-primary transition-colors">关于我</a>
-        <a href="#skills" class="text-neutral dark:text-white hover:text-primary dark:hover:text-primary transition-colors">技能</a>
-        <a href="#projects" class="text-neutral dark:text-white hover:text-primary dark:hover:text-primary transition-colors">项目</a>
-        <a href="#contact" class="text-neutral dark:text-white hover:text-primary dark:hover:text-primary transition-colors">联系</a>
-      </nav>
-      <button id="mobile-menu-btn" class="md:hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-        <i class="fa fa-bars text-neutral dark:text-white"></i>
-      </button>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 bg-secondary dark:bg-dark-secondary text-gray-800 dark:text-gray-200">
+    <!-- 背景图 -->
+    <div id="background" class="fixed inset-0 z-0 bg-blur">
+        <img src="https://api.vvhan.com/api/bing" alt="背景图片" class="w-full h-full object-cover">
     </div>
-  </header>
-  
-  <!-- 移动端菜单 -->
-  <div id="mobile-menu" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex items-center justify-center hidden md:hidden">
-    <div class="glass-dark rounded-xl p-6 w-full max-w-md mx-4">
-      <div class="flex justify-end mb-4">
-        <button id="close-mobile-menu-btn" class="p-2 rounded-full hover:bg-gray-700 transition-colors">
-          <i class="fa fa-times text-white"></i>
-        </button>
-      </div>
-      <nav class="flex flex-col items-center space-y-4">
-        <a href="#about" class="text-white hover:text-primary transition-colors text-lg">关于我</a>
-        <a href="#skills" class="text-white hover:text-primary transition-colors text-lg">技能</a>
-        <a href="#projects" class="text-white hover:text-primary transition-colors text-lg">项目</a>
-        <a href="#contact" class="text-white hover:text-primary transition-colors text-lg">联系</a>
-      </nav>
+    
+    <!-- 主容器 -->
+    <div class="relative z-10 w-full max-w-4xl">
+        <!-- 设置按钮 -->
+        <div class="absolute top-4 right-4 z-20">
+            <button id="settingsBtn" class="glass-effect bg-white/70 dark:bg-dark-secondary/70 text-primary dark:text-primary p-3 rounded-full shadow-lg hover:bg-white/90 dark:hover:bg-dark-secondary/90 transition-all duration-300">
+                <i class="fa fa-cog text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- 个人资料卡片 -->
+        <div id="profileCard" class="profile-card glass-effect bg-white/70 dark:bg-dark-secondary/70 rounded-2xl shadow-xl p-8 mb-8">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="relative">
+                    <img src="https://q.qlogo.cn/headimg_dl?dst_uin=1774843122&spec=640&img_type=jpg" alt="Xunhaii的头像" class="w-32 h-32 rounded-full object-cover border-4 border-primary/50">
+                </div>
+                <div class="text-center md:text-left">
+                    <h1 class="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-primary dark:text-primary mb-2">Xunhaii</h1>
+                    <p class="text-[clamp(1rem,2vw,1.25rem)] mb-4">无敌摸鱼大王</p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-2">
+                        <span class="bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary px-3 py-1 rounded-full text-sm">Minecraft</span>
+                        <span class="bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary px-3 py-1 rounded-full text-sm">音游</span>
+                        <span class="bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary px-3 py-1 rounded-full text-sm">羽毛球</span>
+                        <span class="bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary px-3 py-1 rounded-full text-sm">摸鱼</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 关于我 -->
+        <div class="glass-effect bg-white/70 dark:bg-dark-secondary/70 rounded-2xl shadow-xl p-8 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-primary dark:text-primary flex items-center">
+                <i class="fa fa-user-circle mr-2"></i> 关于我
+            </h2>
+            <p class="mb-4 leading-relaxed">
+                你好！我是 Xunhaii，一个无敌摸鱼大王！平时我就喜欢在干正事的时候忙里偷闲，让我平时什么都会但都只会一点点TvT，但是谁会拒绝摸🐟呢👍
+            </p>
+            <p class="mb-4 leading-relaxed">
+                我主要游玩的包括 Minecraft、Rotaeno 和 Phigros 和其他有点意思的游戏（如果你有好玩的游戏推荐可以在本页下方给我发邮件），平时也喜欢打羽毛球来放松身心。
+            </p>
+            <p class="leading-relaxed">
+                除了游戏，我也开发了一些个人项目，都是平时没事瞎搞出来的awa
+            </p>
+        </div>
+        
+        <!-- 项目 -->
+        <div class="glass-effect bg-white/70 dark:bg-dark-secondary/70 rounded-2xl shadow-xl p-8 mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-primary dark:text-primary flex items-center">
+                <i class="fa fa-code-fork mr-2"></i> 个人项目
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 项目1 -->
+                <div class="project-card bg-white/80 dark:bg-dark-secondary/80 rounded-xl shadow-lg p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary dark:text-primary">Xunhaii起始页</h3>
+                        <a href="https://github.com/Xunhaii/webstartpage" target="_blank" class="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="mb-4 text-gray-700 dark:text-gray-300">一个简洁实用的浏览器起始页，提供常用网站快速访问和部分自定义功能。</p>
+                    <a href="https://start.xunhaii.com" target="_blank" class="inline-block bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg transition-colors duration-300">
+                        查看项目
+                    </a>
+                </div>
+                
+                <!-- 项目2 -->
+                <div class="project-card bg-white/80 dark:bg-dark-secondary/80 rounded-xl shadow-lg p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-primary dark:text-primary">小土豆服务器</h3>
+                        <a href="https://github.com/XtdMC" target="_blank" class="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                    <p class="mb-4 text-gray-700 dark:text-gray-300">一个Minecraft服务器项目，提供稳定的游戏环境和丰富的游戏内容。</p>
+                    <a href="https://w.xtdmc.top/" target="_blank" class="inline-block bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg transition-colors duration-300">
+                        了解更多
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 联系信息 -->
+        <div class="glass-effect bg-white/70 dark:bg-dark-secondary/70 rounded-2xl shadow-xl p-8">
+            <h2 class="text-2xl font-bold mb-6 text-primary dark:text-primary flex items-center">
+                <i class="fa fa-envelope mr-2"></i> 联系我
+            </h2>
+            
+            <div class="flex flex-col gap-4">
+                <div class="flex items-center">
+                    <div class="bg-primary/10 dark:bg-primary/20 p-3 rounded-full mr-4">
+                        <i class="fa fa-envelope text-primary dark:text-primary"></i>
+                    </div>
+                    <a href="mailto:me@xunhaii.com" class="text-lg hover:text-primary dark:hover:text-primary transition-colors duration-300">me@xunhaii.com</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 页脚 -->
+        <div class="text-center mt-8 text-sm text-gray-600 dark:text-gray-400">
+            <p>© 2025 Xunhaii. | All rights reserved.</p>
+        </div>
     </div>
-  </div>
-
-  <!-- 主内容区 -->
-  <main class="container mx-auto px-4 pt-24 pb-16">
-    <!-- 个人简介 -->
-    <section id="about" class="mb-16 animate-fade-in">
-      <div class="glass dark:glass-dark rounded-2xl shadow-lg p-6 md:p-8">
-        <div class="flex flex-col md:flex-row items-center gap-8">
-          <div class="w-full md:w-1/3 flex justify-center">
-            <div class="relative">
-              <div class="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full blur opacity-75 animate-pulse-slow"></div>
-              <div class="relative rounded-full overflow-hidden border-4 border-white dark:border-neutral-800">
-                <img src="https://q.qlogo.cn/headimg_dl?dst_uin=1774843122&spec=640&img_type=jpg" alt="个人头像" class="w-48 h-48 object-cover">
-              </div>
-            </div>
-          </div>
-          <div class="w-full md:w-2/3">
-            <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-neutral dark:text-white mb-4">你好，我是<span class="text-primary">Xunhaii</span></h2>
-            <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
-              我是一名在读高中生，热爱摆烂（bushi）。喜欢探索未知，对于网络科技领域持有浓厚的兴趣。
-            </p>
-            <div class="flex flex-wrap gap-4">
-              <a href="#contact" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors flex items-center">
-                <i class="fa fa-paper-plane mr-2"></i> 联系我
-              </a>  <!--
-              <a href="#" class="px-6 py-3 bg-white dark:bg-neutral-700 text-neutral dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors flex items-center">
-                <i class="fa fa-download mr-2"></i> 下载简历
-              </a> -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
     
-    <!-- 技能展示 -->
-    <section id="skills" class="mb-16 animate-slide-up" style="animation-delay: 0.2s;">
-      <div class="text-center mb-8">
-        <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-neutral dark:text-white mb-2">我的技能</h2>
-        <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">掌握多种摆烂技术，持续偷懒和蒙混过关</p>
-      </div>
-      
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- 偷懒技能 -->
-        <div class="glass dark:glass-dark rounded-xl shadow-md p-6 hover-scale">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mr-4">
-              <i class="fa fa-code text-primary text-xl"></i>
+    <!-- 设置面板 -->
+    <div id="settingsPanel" class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="settingsOverlay"></div>
+        <div class="relative bg-white dark:bg-dark-secondary rounded-2xl shadow-2xl w-full max-w-md p-6 mx-4 max-h-[90vh] overflow-y-auto scrollbar-hide">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-primary dark:text-primary">设置</h3>
+                <button id="closeSettings" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
             </div>
-            <h3 class="text-xl font-semibold text-neutral dark:text-white">超级摸鱼</h3>
-          </div>
-          <div class="space-y-3">
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">睡觉</span>
-                <span class="text-sm font-medium text-primary">95%</span>
-              </div>
-              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div class="bg-primary h-2 rounded-full" style="width: 95%"></div>
-              </div>
+            
+            <div class="space-y-6">
+                <!-- 主题设置 -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">主题设置</h4>
+                    
+                    <div class="setting-item flex items-center justify-between mb-3">
+                        <div class="flex items-center">
+                            <i class="fa fa-moon-o text-gray-600 dark:text-gray-300 mr-3"></i>
+                            <span>主题模式</span>
+                        </div>
+                        <select id="themeMode" class="bg-gray-100 dark:bg-gray-800 border-0 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary dark:focus:ring-primary w-36 text-base">
+                            <option value="system">跟随系统</option>
+                            <option value="light">浅色模式</option>
+                            <option value="dark">深色模式</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- 视觉效果 -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">视觉效果</h4>
+                    
+                    <div class="setting-item flex items-center justify-between mb-3">
+                        <div class="flex items-center">
+                            <i class="fa fa-magic text-gray-600 dark:text-gray-300 mr-3"></i>
+                            <span>动态毛玻璃效果</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="glassEffect" class="sr-only peer" checked>
+                            <div class="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary dark:peer-focus:ring-primary rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary dark:peer-checked:bg-primary"></div>
+                        </label>
+                    </div>
+                    
+                    <div class="setting-item flex flex-col mb-3">
+                        <div class="flex items-center mb-2">
+                            <i class="fa fa-adjust text-gray-600 dark:text-gray-300 mr-3"></i>
+                            <span>背景模糊程度</span>
+                        </div>
+                        <input type="range" id="blurIntensity" min="0" max="20" value="8" class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+                        <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            <span>无模糊</span>
+                            <span>高模糊</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 背景设置 -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">背景设置</h4>
+                    
+                    <div class="mb-3">
+                        <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">当前背景</label>
+                        <div id="currentBackgroundPreview" class="w-full h-40 bg-gray-200 dark:bg-gray-700 rounded-lg mb-2 overflow-hidden">
+                            <img src="https://api.vvhan.com/api/bing" alt="当前背景预览" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">背景图片URL</label>
+                        <div class="flex">
+                            <input type="text" id="backgroundUrl" placeholder="输入图片URL" class="flex-1 bg-gray-100 dark:bg-gray-800 border-0 rounded-l-lg px-4 py-3 focus:ring-2 focus:ring-primary dark:focus:ring-primary text-base">
+                            <button id="setBackgroundUrl" class="bg-primary hover:bg-primary/90 text-white px-4 py-3 rounded-r-lg transition-colors duration-300 text-base">
+                                设置
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">上传背景图片</label>
+                        <div class="flex items-center justify-center w-full">
+                            <label class="flex flex-col rounded-lg border-2 border-dashed w-full h-36 p-10 group text-center">
+                                <div class="h-full w-full text-center flex flex-col items-center justify-center">
+                                    <div class="flex flex-auto">
+                                        <svg class="w-14 h-14 text-gray-400 group-hover:text-primary dark:text-gray-500 dark:group-hover:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                    </div>
+                                    <p class="text-base text-gray-500 dark:text-gray-400 group-hover:text-primary dark:group-hover:text-primary pt-2">点击上传图片</p>
+                                </div>
+                                <input type="file" id="backgroundUpload" accept="image/*" class="hidden">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="resetSettings" class="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 py-3 rounded-lg transition-colors duration-300 text-base">
+                    恢复默认设置
+                </button>
             </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">吃饭</span>
-                <span class="text-sm font-medium text-primary">90%</span>
-              </div>
-              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div class="bg-primary h-2 rounded-full" style="width: 90%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">玩游戏</span>
-                <span class="text-sm font-medium text-primary">85%</span>
-              </div>
-              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div class="bg-primary h-2 rounded-full" style="width: 85%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">摸鱼</span>
-                <span class="text-sm font-medium text-primary">75%</span>
-              </div>
-              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div class="bg-primary h-2 rounded-full" style="width: 75%"></div>
-              </div>
-            </div>
-          </div>
         </div>
-        
-        <!-- 摆烂技能 -->
-        <div class="glass dark:glass-dark rounded-xl shadow-md p-6 hover-scale">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mr-4">
-              <i class="fa fa-server text-green-600 text-xl"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-neutral dark:text-white">无敌摆烂</h3>
-          </div>
-          <div class="space-y-3">
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">破罐子破摔</span>
-                <span class="text-sm font-medium text-green-600">85%</span>
-              </div>
-              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div class="bg-green-600 h-2 rounded-full" style="width: 85%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">借鉴他人劳动成果</span>
-                <span class="text-sm font-medium text-green-600">80%</span>
-              </div>
-              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div class="bg-green-600 h-2 rounded-full" style="width: 80%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">阿巴阿巴</span>
-                <span class="text-sm font-medium text-green-600">85%</span>
-              </div>
-              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div class="bg-green-600 h-2 rounded-full" style="width: 85%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">胡言乱语</span>
-                <span class="text-sm font-medium text-green-600">70%</span>
-              </div>
-              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div class="bg-green-600 h-2 rounded-full" style="width: 70%"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- 我不知道咋编了 -->
-        <div class="glass dark:glass-dark rounded-xl shadow-md p-6 hover-scale">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mr-4">
-              <i class="fa fa-database text-purple-600 text-xl"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-neutral dark:text-white">awa</h3>
-          </div>
-          <div class="space-y-3">
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">我</span>
-                <span class="text-sm font-medium text-purple-600">90%</span>
-              </div>
-              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div class="bg-purple-600 h-2 rounded-full" style="width: 90%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">不知道</span>
-                <span class="text-sm font-medium text-purple-600">85%</span>
-              </div>
-              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div class="bg-purple-600 h-2 rounded-full" style="width: 85%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">该怎么</span>
-                <span class="text-sm font-medium text-purple-600">75%</span>
-              </div>
-              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div class="bg-purple-600 h-2 rounded-full" style="width: 75%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">继续编了</span>
-                <span class="text-sm font-medium text-purple-600">65%</span>
-              </div>
-              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                <div class="bg-purple-600 h-2 rounded-full" style="width: 65%"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- 项目经验 -->
-    <section id="projects" class="mb-16 animate-slide-up" style="animation-delay: 0.4s;">
-      <div class="text-center mb-8">
-        <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-neutral dark:text-white mb-2">我的项目</h2>
-        <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">精选部分个人仅有的项目，展现我的超绝摸鱼水平</p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- 项目1 -->
-        <div class="glass dark:glass-dark rounded-xl shadow-md overflow-hidden hover-scale">
-          <div class="relative h-48">
-            <img src="https://w.xtdmc.top/image/head.png" alt="项目1预览图" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-              <div class="p-4">
-                <span class="text-xs font-medium bg-primary/90 text-white px-2 py-1 rounded">PotatoL</span>
-                <span class="text-xs font-medium bg-green-600/90 text-white px-2 py-1 rounded ml-2">Java/Bedrock</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-semibold text-neutral dark:text-white mb-2">PotatoL（小土豆）服务器</h3>
-            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
-              高版本Minecraft生存服务器，致力于打造和谐友好的Minecraft玩家社区
-            </p>
-            <div class="flex justify-between items-center">
-              <a href="https://w.xtdmc.top/" class="text-primary hover:text-primary/80 text-sm font-medium flex items-center">
-                查看详情 <i class="fa fa-arrow-right ml-1"></i>
-              </a>
-              <div class="flex space-x-2">
-                <a href="https://github.com/xtdmc" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                  <i class="fa fa-github"></i>
-                </a>
-                <a href="https://w.xtdmc.top" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                  <i class="fa fa-external-link"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- 项目2 -->
-        <div class="glass dark:glass-dark rounded-xl shadow-md overflow-hidden hover-scale">
-          <div class="relative h-48">
-            <img src="https://www.xunhaii.com/img/startpage_preview.jpg" alt="项目2预览图" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-              <div class="p-4">
-                <span class="text-xs font-medium bg-blue-600/90 text-white px-2 py-1 rounded">HTML</span>
-                <span class="text-xs font-medium bg-red-600/90 text-white px-2 py-1 rounded ml-2">JavaScript</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-semibold text-neutral dark:text-white mb-2">Xunhaii起始页</h3>
-            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
-              静态浏览器起始页，简约大气且优雅
-            </p>
-            <div class="flex justify-between items-center">
-              <a href="https://start.xunhaii.com/" class="text-primary hover:text-primary/80 text-sm font-medium flex items-center">
-                查看详情 <i class="fa fa-arrow-right ml-1"></i>
-              </a>
-              <div class="flex space-x-2">
-                <a href="https://github.com/Xunhaii/webstartpage" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                  <i class="fa fa-github"></i>
-                </a>
-                <a href="https://start.xunhaii.com/" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                  <i class="fa fa-external-link"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- 项目3（我凑不出来3个项目）
-        <div class="glass dark:glass-dark rounded-xl shadow-md overflow-hidden hover-scale">
-          <div class="relative h-48">
-            <img src="https://picsum.photos/seed/project3/600/400" alt="项目3预览图" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-              <div class="p-4">
-                <span class="text-xs font-medium bg-yellow-600/90 text-white px-2 py-1 rounded">Python</span>
-                <span class="text-xs font-medium bg-purple-600/90 text-white px-2 py-1 rounded ml-2">Django</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-semibold text-neutral dark:text-white mb-2">数据分析平台</h3>
-            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
-              用于处理和可视化大数据的平台，提供数据导入、清洗、分析和可视化功能。
-            </p>
-            <div class="flex justify-between items-center">
-              <a href="#" class="text-primary hover:text-primary/80 text-sm font-medium flex items-center">
-                查看详情 <i class="fa fa-arrow-right ml-1"></i>
-              </a>
-              <div class="flex space-x-2">
-                <a href="#" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                  <i class="fa fa-github"></i>
-                </a>
-                <a href="#" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                  <i class="fa fa-external-link"></i>
-                </a>
-              </div>
-            </div>
-          </div> 
-      -->
-        </div>
-      </div>
-    </section>
-    
-    <!-- 联系信息 -->
-    <section id="contact" class="mb-16 animate-slide-up" style="animation-delay: 0.6s;">
-      <div class="text-center mb-8">
-        <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-bold text-neutral dark:text-white mb-2">联系我</h2>
-        <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">如果你对我的摸鱼技巧情有独钟，欢迎随时联系我</p>
-      </div>
-      
-      <div class="glass dark:glass-dark rounded-2xl shadow-lg p-6 md:p-8">
-        <div class="space-y-6">
-          <div class="flex items-start">
-            <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mr-4 flex-shrink-0">
-              <i class="fa fa-map-marker text-primary text-xl"></i>
-            </div>
-            <div>
-              <h4 class="text-lg font-semibold text-neutral dark:text-white mb-1">地址</h4>
-              <p class="text-gray-600 dark:text-gray-300">https://www.xunhaii.com</p>
-            </div>
-          </div>
-          <div class="flex items-start">
-            <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mr-4 flex-shrink-0">
-              <i class="fa fa-envelope text-green-600 text-xl"></i>
-            </div>
-            <div>
-              <h4 class="text-lg font-semibold text-neutral dark:text-white mb-1">邮箱</h4>
-              <p class="text-gray-600 dark:text-gray-300">me@xunhaii.com</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="mt-8">
-          <h4 class="text-lg font-semibold text-neutral dark:text-white mb-3">关注我</h4>
-          <div class="flex space-x-4">
-            <a href="https://github.com/xunhaii" class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors">
-              <i class="fa fa-github"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- 页脚 -->
-  <footer class="fixed bottom-0 left-0 right-0">
-    <div class="glass dark:glass-dark px-4 py-2 text-center text-sm text-gray-600 dark:text-gray-400">
-      <p>© 2025 Xunhaii | All rights reserved.</p>
     </div>
-  </footer>
-
-  <script src="/script.js"></script>
+    
+    <script src="/assets/js/script.js"></script>
 </body>
 </html>
+    
