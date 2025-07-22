@@ -128,7 +128,7 @@ function setBackground(url) {
     img.onerror = function() {
         alert('图片加载失败，请检查URL或图片格式');
         // 恢复默认背景
-        const defaultBg = 'https://api.vvhan.com/api/bing';
+        const defaultBg = 'https://www.xunhaii.com/bing-wallpaper/bing-wallpaper.jpg';
         img.src = defaultBg;
         currentBackgroundPreview.src = defaultBg;
         localStorage.removeItem('backgroundUrl');
